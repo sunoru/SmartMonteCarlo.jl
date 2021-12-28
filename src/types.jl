@@ -1,6 +1,8 @@
-struct SMCSetup{TC <: ConfigurationSystem, TM <: MosiModel} <: SimulationSetup
-    initial::TC
+struct SMCSetup{TE <: Ensemble, TM <: MosiModel} <: SimulationSetup
+    initial::ConfigurationSystem{T, Vector{T}}
     model::TM
+    ensemble::TE
+    max_steps::Int
 end
 
 mutable struct SMCState{T <: MosiVector} <: SimulationState
