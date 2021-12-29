@@ -9,9 +9,15 @@ uuid = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 
 [[MosiBases]]
 deps = ["LinearAlgebra", "Random", "RandomNumbers", "StaticArrays", "Statistics"]
-path = "../MosiBases"
+git-tree-sha1 = "7a0f5bb765c48fe164b31bd3331a297931cb0417"
+repo-rev = "main"
+repo-url = "https://github.com/sunoru/MosiBases.jl.git"
 uuid = "a39d5f18-f8b1-4777-8f97-f1f91469dbd0"
 version = "0.1.0"
+
+[[Printf]]
+deps = ["Unicode"]
+uuid = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 
 [[Random]]
 deps = ["Serialization"]
@@ -22,6 +28,11 @@ deps = ["Random", "Requires"]
 git-tree-sha1 = "043da614cc7e95c703498a491e2c21f58a2b8111"
 uuid = "e6cf234a-135c-5ec9-84dd-332b85af5143"
 version = "1.5.3"
+
+[[Reexport]]
+git-tree-sha1 = "45e428421666073eab6f2da5c9d310d99bb12f9b"
+uuid = "189a3867-3050-52da-a836-e630ba90ab69"
+version = "1.2.2"
 
 [[Requires]]
 deps = ["UUIDs"]
@@ -52,3 +63,6 @@ uuid = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 [[UUIDs]]
 deps = ["Random", "SHA"]
 uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
+
+[[Unicode]]
+uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"

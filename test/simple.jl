@@ -2,7 +2,8 @@ include("test_common.jl")
 
 @testset "Simple 2D Lennard-Jones System" begin
     
-using MosiBases
+import Pkg
+Pkg.add(url="https://github.com/sunoru/LennardJones.jl.git")
 using LennardJones
 
 using SmartMonteCarlo
@@ -49,6 +50,17 @@ initial = ConfigurationSystem([
     Vector2(0, 1)
 ], box=model.box)
 
-@show potential_energy(initial, model)
+setup = smc_init(
+    initial, model,
+    max_steps = 1000,
+    force_bias = OrthogonalPotential(0.8),
+    step_function = GaussianStep(0.5),
+    ensemble = PotentialEnergyLandscapeEnsemble(0.0),
+    output_dir = joinpath(@__DIR__, "./output")
+)
+
+@test SmartMonteCarlo.init_state(setup) isa SMCState
+
+@test potential_energy(initial, model) ≈ -0.4375
 
 end

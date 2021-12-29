@@ -1,8 +1,18 @@
-struct SMCSetup{TE <: Ensemble, TM <: MosiModel} <: SimulationSetup
+struct SMCSetup{
+    T <: MosiVector,
+    TE <: Ensemble,
+    TM <: MosiModel,
+    TS <: StepFunction,
+    TF <: ForceBiasType
+} <: SimulationSetup
     initial::ConfigurationSystem{T, Vector{T}}
     model::TM
     ensemble::TE
     max_steps::Int
+    step_function::TS
+    force_bias::TF
+
+    output_dir::String
 end
 
 mutable struct SMCState{T <: MosiVector} <: SimulationState
@@ -13,3 +23,6 @@ end
 Base.time(s::SMCState) = s.step
 system(s::SMCState) = s.configuration
 
+struct SMCResult <: SimulationResult
+# TODO
+end
