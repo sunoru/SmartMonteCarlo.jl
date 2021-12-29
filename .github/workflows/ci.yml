@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/checkout@v2
         with:
-          name: sunoru/MosiBases.jl
+          repository: sunoru/MosiBases.jl
           path: ../MosiBases
       - uses: julia-actions/setup-julia@v1
         with:
