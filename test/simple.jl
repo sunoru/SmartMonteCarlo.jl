@@ -35,11 +35,16 @@ function make_callback(setup, data)
     logging_period = 100
     data["PEs"] = PEs = Float64[]
     data["accepted"] = 0
+    data["δRs"] = δRs = Float64[]
+    last_configuration = Ref(copy(positions(setup.initial)))
     @printf "  Step  | Just Moved | Potential Energy \n"
     (state::SMCState; force_logging::Bool = false) -> begin
         step = state.step
         V = potential_energy(system(state), model)
         push!(PEs, V)
+        current = copy(positions(system(state)))
+        push!(δRs, norm(last_configuration[] - current))
+        last_configuration[] = current
         just_moved = state.just_moved_index
         if just_moved > 0
             data["accepted"] += 1
@@ -66,9 +71,13 @@ result = smc_run(setup; callback = make_callback(setup, data))
 
 mean_PEs = mean(data["PEs"])
 @show mean_PEs
-@test mean_PEs ≈ 0.5210879790489125
+@test mean_PEs ≈ 0.38948977224631887
+mean_δRs = mean(data["δRs"])
+@show mean_δRs
+@test mean_δRs ≈ 0.12888602796746962
+
 accepted = data["accepted"]
 @printf "Acceptance: %d/%d (%.2f%%)\n" accepted max_steps accepted / max_steps * 100
-@test accepted ≡ 614
+@test accepted ≡ 462
 
 end
