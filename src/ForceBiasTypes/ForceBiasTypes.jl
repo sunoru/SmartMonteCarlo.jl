@@ -10,7 +10,9 @@ import ..StepFunctions: get_move_step
 export ForceBiasType
 abstract type ForceBiasType end
 
-export OrthogonalPotential
-include("./orthogonal_potential.jl")
+export OrthogonalToGradients
+include("./orthogonal_to_gradients.jl")
+export OrthogonalToPotential
+include("./orthogonal_to_potential.jl")
 
 end
