@@ -37,6 +37,11 @@ end
     state
 end
 
+function invoke_callback(callback, state, force_logging = false)
+    ret = callback(state, force_logging = force_logging)
+    isnothing(ret) ? false : ret
+end
+
 # Main function for running SMC.
 function smc_run(
     setup::SMCSetup;
@@ -45,13 +50,13 @@ function smc_run(
     return_result::Bool = true
 )
     state = init_state(setup)
-    callback(state)
-    while state.step < setup.max_steps
+    should_stop = invoke_callback(callback, state)
+    while !should_stop && state.step < setup.max_steps
         state = evolve!(state, setup)
-        callback(state)
+        should_stop = invoke_callback(callback, state)
     end
     # Log the final state.
-    callback(state, force_logging = true)
+    invoke_callback(callback, state, true)
     return_result || return nothing
     # TODO: Make Result
     result = SMCResult()
