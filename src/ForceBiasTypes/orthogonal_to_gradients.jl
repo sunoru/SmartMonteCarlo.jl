@@ -85,6 +85,6 @@ end
     new_rs::Vector{T}
 ) where T
     rs = positions(system(state))
-    rs[i] = new_rs[i]
+    rs .= new_rs
     state
 end

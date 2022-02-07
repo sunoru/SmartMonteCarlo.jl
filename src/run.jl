@@ -28,7 +28,6 @@ end
     )
     state.just_moved_index = if probability > 0 && rand(state.rng) < probability
         accept_move!(state, model, i, fb, new_rs)
-        update_periods!(system(state))
         i
     else
         -i
