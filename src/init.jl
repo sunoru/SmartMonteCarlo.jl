@@ -16,7 +16,7 @@ function smc_init(
 )
     rs = positions(initial)
     box = pbc_box(initial)
-    initial = ConfigurationSystem(copy(rs), box = box)
+    initial = ConfigurationSystem(copy(rs), box = box, update_periods = false)
     output_dir = abspath(output_dir)
     setup = SMCSetup(
         initial, model, ensemble,
