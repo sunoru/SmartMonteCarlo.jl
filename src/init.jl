@@ -1,4 +1,4 @@
-function MosiBases.init_state(setup::SMCSetup)
+function MosiBase.init_state(setup::SMCSetup)
     rng = new_rng(setup.rng_seed)
     SMCState(0, 0, copy(setup.initial), rng, 0)
 end

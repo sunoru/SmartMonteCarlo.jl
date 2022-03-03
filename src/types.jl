@@ -6,7 +6,7 @@ mutable struct SMCState{T <: MosiVector} <: SimulationState
     just_moved_index::Int
 end
 Base.time(s::SMCState) = s.step
-MosiBases.system(s::SMCState) = s.configuration
+MosiBase.system(s::SMCState) = s.configuration
 
 struct SMCResult <: SimulationResult
 # TODO

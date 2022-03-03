@@ -1,6 +1,6 @@
 module Ensembles
 
-using MosiBases
+using MosiBase
 
 include("./pel_ensemble.jl")
 
