@@ -1,7 +1,7 @@
 module ForceBiasTypes
 
 using LinearAlgebra
-using MosiBase
+using MosimoBase
 import ..SmartMonteCarlo: SMCState
 import ..Ensembles: probability_ratio
 using ..StepFunctions

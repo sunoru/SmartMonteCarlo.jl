@@ -2,7 +2,7 @@ module SmartMonteCarlo
 
 using Reexport: @reexport
 
-using MosiBase
+using MosimoBase
 
 export SMCState, SMCResult
 include("./types.jl")

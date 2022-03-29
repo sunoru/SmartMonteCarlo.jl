@@ -8,7 +8,7 @@ catch ArgumentError
     using LennardJones
 end
 
-using SmartMonteCarlo.MosiBase
+using SmartMonteCarlo.MosimoBase
 
 struct LJ2DModel <: MosiModel{Vector2}
     N::Int
@@ -25,7 +25,7 @@ function V_func(rs::Vector2s, dist)
     end
     V
 end
-MosiBase.potential_energy_function(model::LJ2DModel, rs) = V_func(rs, distance_function(model))
+MosimoBase.potential_energy_function(model::LJ2DModel, rs) = V_func(rs, distance_function(model))
 
 function ∇V_func(rs::Vector2s, dist)
     N = length(rs)
@@ -50,10 +50,10 @@ function ∇V_func(rs::Vector2s, i::Int, dist)
     end
     ∇V
 end
-MosiBase.force_function(model::LJ2DModel, rs) = -∇V_func(rs, distance_function(model))
-MosiBase.force_function(model::LJ2DModel, rs, i) = -∇V_func(rs, i, distance_function(model))
-MosiBase.potential_energy_gradients(model::LJ2DModel, rs) = ∇V_func(rs, distance_function(model))
-MosiBase.potential_energy_gradients(model::LJ2DModel, rs, i) = ∇V_func(rs, i, distance_function(model))
-MosiBase.has_pbc(::LJ2DModel) = true
+MosimoBase.force_function(model::LJ2DModel, rs) = -∇V_func(rs, distance_function(model))
+MosimoBase.force_function(model::LJ2DModel, rs, i) = -∇V_func(rs, i, distance_function(model))
+MosimoBase.potential_energy_gradients(model::LJ2DModel, rs) = ∇V_func(rs, distance_function(model))
+MosimoBase.potential_energy_gradients(model::LJ2DModel, rs, i) = ∇V_func(rs, i, distance_function(model))
+MosimoBase.has_pbc(::LJ2DModel) = true
 
 end

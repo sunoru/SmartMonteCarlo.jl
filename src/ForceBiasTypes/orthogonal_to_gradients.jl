@@ -28,7 +28,8 @@ end
 ) where T <: MosiVector
     a = fb.a
     ∇O_func = fb.∇O
-    C = √(3 / (1 - 2a + 3a ^ 2 / 2))
+    J = ndims(T)
+    C = √(J / (1 - 2a + 3a ^ 2 / 2))
     ∇O_i = normalize(∇O_func(rs, i))
     P = ∇O_i * ∇O_i'
     C * (a / 2 * (I - P) + (1 - a) * P)

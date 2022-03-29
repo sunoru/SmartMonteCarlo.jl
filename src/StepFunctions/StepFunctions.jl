@@ -1,6 +1,6 @@
 module StepFunctions
 
-using MosiBase
+using MosimoBase
 import ..SmartMonteCarlo: SMCState
 
 export StepFunction

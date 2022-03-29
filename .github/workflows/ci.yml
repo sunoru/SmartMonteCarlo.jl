@@ -21,9 +21,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/checkout@v2
         with:
-          repository: sunoru/MosiBases.jl
-          path: ./MosiBases
-      - run: mv ./MosiBases ../MosiBases
+          repository: sunoru/MosimoBase.jl
+          path: ./MosimoBase
+      - run: mv ./MosimoBase ../MosimoBase
       - uses: julia-actions/setup-julia@v1
         with:
           version: ${{ matrix.version }}
