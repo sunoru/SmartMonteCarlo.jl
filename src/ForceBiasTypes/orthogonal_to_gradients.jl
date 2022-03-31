@@ -29,7 +29,7 @@ end
     a = fb.a
     ∇O_func = fb.∇O
     J = ndims(T)
-    C = √(J / (1 - 2a + 3a ^ 2 / 2))
+    C = √(J / (1 - 2a + (1 + (J - 1) / 4) * a ^ 2))
     ∇O_i = normalize(∇O_func(rs, i))
     P = ∇O_i * ∇O_i'
     C * (a / 2 * (I - P) + (1 - a) * P)
@@ -38,20 +38,6 @@ end
 @inline function _G(rs, i, Δr_i, ∇O_func)
     F_i = -∇O_func(rs, i)
     (Δr_i ⋅ F_i) ^ 2 / tr(F_i * F_i')
-end
-
-function apply_constraints(rs, i, Δr_i, model::MosiModel{T}) where T
-    ∇Cs = constraint_gradients(model, rs)
-    if length(∇Cs) == 0
-        new_rs = copy(rs)
-        new_rs[i] += Δr_i
-        return new_rs
-    end
-    P = projection_matrix(∇Cs)
-    N = length(rs)
-    direction = zeros(T, N)
-    direction[i] = Δr_i
-    new_rs = rs + unflatten(T, P * flatten(direction))
 end
 
 function try_move(
@@ -65,14 +51,14 @@ function try_move(
     m = get_projector(fb, rs, i)
     ∇O_func = fb.∇O
     Δr_i = m * δr
-    without_constraints = copy(rs)
-    without_constraints[i] += Δr_i
-    new_rs = apply_constraints(rs, i, Δr_i, model)
+    new_rs = copy(rs)
+    new_rs[i] += Δr_i
     ρ_ratio = probability_ratio(ensemble, model, rs, new_rs)
     ρ_ratio ≤ 0 && return rs, 0
     α = 1 / 2 / gaussian_step.σ ^ 2
     a = fb.a
-    C = √(3 / (1 - 2a + 3a ^ 2 / 2))
+    J = ndims(δr)
+    C = √(J / (1 - 2a + (1 + (J - 1) / 4) * a ^ 2))
     γ = ((1 - a) ^ (-2) - (a / 2) ^ (-2)) / C ^ 2
     p = ρ_ratio * exp(-α * γ * (
         _G(without_constraints, i, Δr_i, ∇O_func) - _G(rs, i, Δr_i, ∇O_func)
@@ -86,6 +72,6 @@ end
     new_rs::Vector{T}
 ) where T
     rs = positions(system(state))
-    rs .= new_rs
+    rs[i] = new_rs[i]
     state
 end

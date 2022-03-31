@@ -9,4 +9,7 @@ abstract type StepFunction end
 export GaussianStep
 include("./gaussian.jl")
 
+export UniformRotationStep
+include("./rotate.jl")
+
 end

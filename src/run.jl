@@ -1,6 +1,6 @@
 import Printf: @printf
 
-import .ForceBiasTypes: try_move, accept_move!
+using .ForceBiasTypes: try_move, accept_move!
 
 function default_callback(setup::SMCSetup)
     logging_period = max(10, setup.max_steps ÷ 20)
