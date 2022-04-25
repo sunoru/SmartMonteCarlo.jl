@@ -1,5 +1,5 @@
 @doc raw"""
-Simple $d$-dimensional Gaussian
+Uniform rotation on a sphere
 
 ```math
 \begin{cases}
